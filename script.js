@@ -1,93 +1,84 @@
-// Perguntas e respostas do jogo
-
 const questions = [
     {
-        question: "Qual e a capital de Mocambique?",
-        answers:['Maputo','Beira','Nampula','Pemba'],
-        correct: 'Maputo'
+        question: "Qual é a capital de Moçambique?",
+        answers: ["Maputo", "Beira", "Nampula", "Pemba"],
+        correct: "Maputo"
     },
     {
-        question: "Qual e a linguagem de programacao principal para desenvolvimento web?",
-        answers:['Python','JavaScript','C++','Java'],
-        correct: 'JavaScript'
+        question: "Qual é a linguagem de programação principal para desenvolvimento web?",
+        answers: ["Python", "JavaScript", "C++", "Java"],
+        correct: "JavaScript"
     },
     {
         question: "Quantos planetas existem no sistema solar?",
-        answers:['7','8','9','10'],
-        correct: '8'
+        answers: ["7", "8", "9", "10"],
+        correct: "8"
     },
-    {
-        question: "Quantos continentes existem no mundo?",
-        answers:['5','6','7','8'],
-        correct: '7'
-    }
-]
+    // Adicione mais perguntas conforme necessário
+];
 
 let currentQuestionIndex = 0;
 let score = 0;
 
-// elementos do DOM
+// Elementos do DOM
 const questionElement = document.getElementById("question");
 const answerElements = document.querySelectorAll(".answer");
 const scoreElement = document.getElementById("score");
 const nextButton = document.getElementById("nextQuestion");
-const inputAnswer = document.getElementById("answre");
+const inputAnswer = document.getElementById("answer");
 
-// Exibe a pergunta a atual
-
-function loadQuestion(){
+// Exibe a pergunta atual
+function loadQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.textContent = currentQuestion.question;
-    answerElements.forEach((el, index)=>{
+    answerElements.forEach((el, index) => {
         el.textContent = currentQuestion.answers[index];
-        el.onclick = ()=> checkAnswer(currentQuestion.answers[index]);
-    })
-    inputAnswer.value = ''; // limpa a entrada do texto
+        el.onclick = () => checkAnswer(currentQuestion.answers[index]);
+    });
+    inputAnswer.value = "";  // Limpa a entrada de texto
 }
 
-// Verfica a resposta selecionada pelo usuário
-function checkAnswer(answer){
+// Verifica a resposta selecionada pelo usuário
+function checkAnswer(answer) {
     const correctAnswer = questions[currentQuestionIndex].correct;
-    if(answer == correctAnswer){
+    if (answer === correctAnswer) {
         score++;
         scoreElement.textContent = `Pontuação: ${score}`;
-        alert('Correto!')
-    }else{
+        alert("Correto!");
+    } else {
         alert(`Errado! A resposta correta é: ${correctAnswer}`);
     }
 }
 
-
-// Vai para a proxima pergunta
-function nextQuestion(){
-    if(currentQuestionIndex < questions.length -1){
+// Vai para a próxima pergunta
+function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
         loadQuestion();
-    }else{
-        alert("Fim do jogo! Pontuação final: "+ score);
+    } else {
+        alert("Fim do jogo! Pontuação final: " + score);
         currentQuestionIndex = 0;
         score = 0;
         scoreElement.textContent = `Pontuação: ${score}`;
         loadQuestion();
     }
-    
 }
 
-// Verficar a resposta do campo de texto
-function checkTextAnswer(){
+// Verifica a resposta do campo de texto
+function checkTextAnswer() {
     const answer = inputAnswer.value.trim();
-    if(answer){
-        checkAnswer(answer)
+    if (answer) {
+        checkAnswer(answer);
     }
 }
 
-// Eventos 
+// Eventos
 nextButton.addEventListener("click", nextQuestion);
-inputAnswer.addEventListener("keypress",(evt)=>{
-    if(evt.key == "Enter"){
+inputAnswer.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
         checkTextAnswer();
     }
-})
+});
 
-// Inicializa o jogo;
+// Inicializa o jogo
 loadQuestion();

@@ -60,5 +60,34 @@ function checkAnswer(answer){
 
 // Vai para a proxima pergunta
 function nextQuestion(){
+    if(currentQuestionIndex < questions.length -1){
+        currentQuestionIndex++;
+        loadQuestion();
+    }else{
+        alert("Fim do jogo! Pontuação final: "+ score);
+        currentQuestionIndex = 0;
+        score = 0;
+        scoreElement.textContent = `Pontuação: ${score}`;
+        loadQuestion();
+    }
     
 }
+
+// Verficar a resposta do campo de texto
+function checkTextAnswer(){
+    const answer = inputAnswer.value.trim();
+    if(answer){
+        checkAnswer(answer)
+    }
+}
+
+// Eventos 
+nextButton.addEventListener("click", nextQuestion);
+inputAnswer.addEventListener("keypress",(evt)=>{
+    if(evt.key == "Enter"){
+        checkTextAnswer();
+    }
+})
+
+// Inicializa o jogo;
+loadQuestion();

@@ -28,7 +28,37 @@ let score = 0;
 
 // elementos do DOM
 const questionElement = document.getElementById("question");
-const answerElement = document.querySelectorAll(".answer");
+const answerElements = document.querySelectorAll(".answer");
 const scoreElement = document.getElementById("score");
 const nextButton = document.getElementById("nextQuestion");
 const inputAnswer = document.getElementById("answre");
+
+// Exibe a pergunta a atual
+
+function loadQuestion(){
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    answerElements.forEach((el, index)=>{
+        el.textContent = currentQuestion.answers[index];
+        el.onclick = ()=> checkAnswer(currentQuestion.answers[index]);
+    })
+    inputAnswer.value = ''; // limpa a entrada do texto
+}
+
+// Verfica a resposta selecionada pelo usuário
+function checkAnswer(answer){
+    const correctAnswer = questions[currentQuestionIndex].correct;
+    if(answer == correctAnswer){
+        score++;
+        scoreElement.textContent = `Pontuação: ${score}`;
+        alert('Correto!')
+    }else{
+        alert(`Errado! A resposta correta é: ${correctAnswer}`);
+    }
+}
+
+
+// Vai para a proxima pergunta
+function nextQuestion(){
+    
+}

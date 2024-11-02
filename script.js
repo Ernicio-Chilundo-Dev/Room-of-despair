@@ -22,3 +22,13 @@ const questions = [
         correct: '7'
     }
 ]
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+// elementos do DOM
+const questionElement = document.getElementById("question");
+const answerElement = document.querySelectorAll(".answer");
+const scoreElement = document.getElementById("score");
+const nextButton = document.getElementById("nextQuestion");
+const inputAnswer = document.getElementById("answre");
